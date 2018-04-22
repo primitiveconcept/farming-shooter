@@ -13,14 +13,13 @@
 		[SerializeField]
 		private int count;
 
+		[SerializeField]
+		private bool isDroppable = true;
+
 		public event Action<ItemEntry> Changed;
 
-		public ItemData ItemData
-		{
-			get { return this.itemData; }
-		}
 
-
+		#region Properties
 		public int Count
 		{
 			get { return this.count; }
@@ -39,10 +38,25 @@
 				else
 					this.count = value;
 
-				Action<ItemEntry> changed = this.Changed;
+				Action<ItemEntry> changed = Changed;
 				if (changed != null)
 					changed(this);
 			}
 		}
+
+
+		public bool IsDroppable
+		{
+			get { return this.isDroppable; }
+			set { this.isDroppable = value; }
+		}
+
+
+		public ItemData ItemData
+		{
+			get { return this.itemData; }
+			set { this.itemData = value; }
+		}
+		#endregion
 	}
 }

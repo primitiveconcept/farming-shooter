@@ -1,9 +1,11 @@
 ﻿namespace FarmingShooter
 {
+	using System;
 	using UnityEngine;
 	using UnityEngine.Events;
 
 
+	[Serializable]
 	public abstract class ObservableRangeInt : MonoBehaviour
 	{
 		[SerializeField]
@@ -16,10 +18,10 @@
 		private int max = 100;
 
 		[SerializeField]
-		private bool setToMaxOnStart = true;
+		private bool setToMaxOnStart;
 
 		[SerializeField]
-		private ChangedEvent onHealthChanged;
+		private ChangedEvent onChanged;
 
 
 		#region Properties
@@ -41,6 +43,12 @@
 		}
 
 
+		public ChangedEvent OnChanged
+		{
+			get { return this.onChanged; }
+		}
+
+
 		public bool SetToMaxOnStart
 		{
 			get { return this.setToMaxOnStart; }
@@ -49,77 +57,109 @@
 		#endregion
 
 
-		public virtual void Increase(int amount)
+		public virtual void Increase(int amount, bool forceEvent = false)
 		{
 			int newValue = this.current + amount;
 			if (newValue > this.max)
 				newValue = this.max;
 
 			if (newValue == this.current)
+			{
+				if (forceEvent)
+					InvokeChanged();
 				return;
+			}
 
 			this.current = newValue;
-			this.onHealthChanged.Invoke(this);
+			InvokeChanged();
 		}
 
 
-		public virtual void Reduce(int amount)
+		public void InvokeChanged()
+		{
+			if (this.onChanged != null)
+				this.onChanged.Invoke(this);
+		}
+
+
+		public virtual void Reduce(int amount, bool forceEvent = false)
 		{
 			int newValue = this.current - amount;
 			if (newValue < 0)
 				newValue = 0;
 
 			if (newValue == this.current)
+			{
+				if (forceEvent)
+					InvokeChanged();
 				return;
+			}
+				
 
 			this.current = newValue;
-			this.onHealthChanged.Invoke(this);
+			InvokeChanged();
 		}
 
 
-		public virtual void SetCurrent(int value)
+		public virtual void SetCurrent(int value, bool forceEvent = false)
 		{
 			if (value == this.current)
+			{
+				if (forceEvent)
+					InvokeChanged();
 				return;
+			}
+				
 
 			this.current = value;
-			this.onHealthChanged.Invoke(this);
+			InvokeChanged();
 		}
 
 
-		public virtual void SetMax(int value)
+		public virtual void SetMax(int value, bool forceEvent = false)
 		{
 			if (value < this.min)
 				value = this.min;
 
 			if (value == this.max)
+			{
+				if (forceEvent)
+					InvokeChanged();
 				return;
+			}
 
 			this.max = value;
-			this.onHealthChanged.Invoke(this);
+			InvokeChanged();
 		}
 
 
-		public virtual void SetMin(int value)
+		public virtual void SetMin(int value, bool forceEvent = false)
 		{
 			if (value > this.max)
 				value = this.max;
 
 			if (value == this.min)
+			{
+				if (forceEvent)
+					InvokeChanged();
 				return;
+			}
 
 			this.min = value;
-			this.onHealthChanged.Invoke(this);
+			InvokeChanged();
 		}
 
 
 		public virtual void Start()
 		{
 			if (this.setToMaxOnStart)
-				SetCurrent(this.max);
+				this.current = this.max;
+
+			InvokeChanged();
 		}
 
 
+		[Serializable]
 		public class ChangedEvent : UnityEvent<ObservableRangeInt>
 		{
 		}

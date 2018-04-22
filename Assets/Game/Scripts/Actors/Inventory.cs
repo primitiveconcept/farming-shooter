@@ -15,6 +15,8 @@
 		[SerializeField]
 		private bool locked = false;
 
+		private HashSet<ItemData> discoveredItems = new HashSet<ItemData>();
+
 
 		#region Properties
 		public int Count
@@ -47,14 +49,32 @@
 		{
 			get
 			{
-				foreach (ItemEntry itemEntry in this.items)
-				{
-					if (itemEntry.ItemData == itemData)
-						return itemEntry;
-				}
+				int index = GetIndexOf(itemData);
+				if (index < 0)
+					return null;
 
-				return null;
+				return this[index];
 			}
+		}
+
+
+		public void DropAll()
+		{
+			for (int i = 0; i < this.Count; i++)
+			{
+				DropItem(i);
+			}
+		}
+
+
+		public void DropItem(int index)
+		{
+			var itemEntry = this[index];
+			if (!itemEntry.IsDroppable)
+				return;
+
+			ItemPickup.CreateFromItemEntry(itemEntry);
+			ConsumeItem(this[index]);
 		}
 
 
@@ -67,37 +87,108 @@
 
 		public bool AcquireItem(ItemEntry itemEntry)
 		{
-			if (this.locked)
-				return false;
-
-			ItemEntry existingEntry = this[itemEntry.ItemData];
-
-			if (existingEntry != null)
-				return IncreaseItemCount(existingEntry, itemEntry.Count);
-
-			return AddNewItemEntry(itemEntry);
+			return AcquireItem(itemEntry.ItemData, itemEntry.Count);
 		}
 
 
-		public void ConsumeItem(int index)
+		public bool AcquireItem(ItemData itemData, int amount)
+		{
+			if (this.locked)
+				return false;
+
+			ItemEntry existingEntry = this[itemData];
+
+			bool collected = false;
+
+			if (existingEntry != null)
+				collected = IncreaseItemCount(existingEntry, amount);
+			else
+				collected = AddNewItemEntry(new ItemEntry() { ItemData = itemData, Count = amount });
+
+			if (collected
+				&& !this.discoveredItems.Contains(itemData))
+			{
+				this.discoveredItems.Add(itemData);
+			}
+
+			return collected;
+		}
+
+
+		public bool CanCraft(ItemData itemData)
+		{
+			foreach (ItemEntry ingredient in itemData.Recipe)
+			{
+				if (!Contains(ingredient.ItemData, ingredient.Count))
+					return false;
+			}
+
+			return true;
+		}
+
+
+		public void ConsumeItem(int index, int amount = 1)
 		{
 			ItemEntry item = this.items[index];
-			item.Count--;
+			item.Count -= amount;
 			if (item.Count < 1)
 				this.items.RemoveAt(index);
 		}
 
 
-		private static bool IncreaseItemCount(ItemEntry existingEntry, int amount)
+		public void ConsumeItem(ItemEntry itemEntry)
 		{
-			if (existingEntry.Count < existingEntry.ItemData.MaxCount)
+			ConsumeItem(itemEntry.ItemData, itemEntry.Count);
+		}
+
+
+		public void ConsumeItem(ItemData itemData, int amount = 1)
+		{
+			int index = GetIndexOf(itemData);
+			ConsumeItem(index, amount);
+		}
+
+
+		public bool Contains(ItemEntry itemEntry)
+		{
+			return Contains(itemEntry.ItemData, itemEntry.Count);
+		}
+
+
+		public bool Contains(ItemData itemData, int count = 1)
+		{
+			ItemEntry foundItem = this[itemData];
+
+			return foundItem.Count >= count;
+		}
+
+
+		public bool Craft(ItemData itemData)
+		{
+			if (!CanCraft(itemData))
+				return false;
+
+			foreach (ItemEntry ingredient in itemData.Recipe)
 			{
-				existingEntry.Count += amount;
-				return true;
+				ConsumeItem(ingredient);
 			}
 
-			// Item already maxed out.
-			return false;
+			AcquireItem(itemData, 1);
+
+			return true;
+		}
+
+
+		public int GetIndexOf(ItemData itemData)
+		{
+			for (int index = 0; index < this.Count; index++)
+			{
+				ItemEntry itemEntry = this[index];
+				if (itemEntry.ItemData == itemData)
+					return index;
+			}
+
+			return -1;
 		}
 
 
@@ -110,6 +201,19 @@
 			}
 
 			// Inventory slots already maxed out.
+			return false;
+		}
+
+
+		private bool IncreaseItemCount(ItemEntry existingEntry, int amount)
+		{
+			if (existingEntry.Count < existingEntry.ItemData.MaxCount)
+			{
+				existingEntry.Count += amount;
+				return true;
+			}
+
+			// Item already maxed out.
 			return false;
 		}
 	}

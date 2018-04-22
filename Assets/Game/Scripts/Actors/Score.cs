@@ -10,9 +10,17 @@
 		private UnityEvent onMaxedOut;
 
 
-		public override void Increase(int amount)
+		#region Properties
+		public UnityEvent OnMaxedOut
 		{
-			base.Increase(amount);
+			get { return this.onMaxedOut; }
+		}
+		#endregion
+
+
+		public override void Increase(int amount, bool forceEvent = false)
+		{
+			base.Increase(amount, forceEvent);
 
 			if (this.Current == this.Max)
 				this.onMaxedOut.Invoke();

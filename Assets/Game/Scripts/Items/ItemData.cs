@@ -4,13 +4,16 @@
 
 
 	[CreateAssetMenu]
-	public abstract class ItemData : ScriptableObject
+	public class ItemData : ScriptableObject
 	{
 		[SerializeField]
 		private string displayName;
 
 		[SerializeField]
 		private Sprite icon;
+
+		[SerializeField]
+		private GameObject equipPrefab;
 
 		[SerializeField]
 		private int maxCount = 255;
@@ -22,13 +25,31 @@
 		private bool isWeapon = false;
 
 		[SerializeField]
+		private float activationCooldown;
+
+		[SerializeField]
 		private bool isConsumed = true;
+
+		[SerializeField]
+		private ItemEntry[] recipe;
 
 
 		#region Properties
+		public float ActivationCooldown
+		{
+			get { return this.activationCooldown; }
+		}
+
+
 		public string DisplayName
 		{
 			get { return this.displayName; }
+		}
+
+
+		public GameObject EquipPrefab
+		{
+			get { return this.equipPrefab; }
 		}
 
 
@@ -60,16 +81,12 @@
 		{
 			get { return this.maxCount; }
 		}
+
+
+		public ItemEntry[] Recipe
+		{
+			get { return this.recipe; }
+		}
 		#endregion
-
-
-		public virtual void Attack(Transform origin)
-		{
-		}
-
-
-		public virtual void Use(Transform origin)
-		{
-		}
 	}
 }

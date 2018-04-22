@@ -1,9 +1,11 @@
 ﻿namespace FarmingShooter
 {
+	using System;
 	using UnityEngine;
 
 
-	public class Actor : MonoBehaviour
+	public class Actor : MonoBehaviour,
+						IHasSprite
 	{
 		[SerializeField]
 		private int equippedItemIndex;
@@ -18,30 +20,24 @@
 		private Transform useItemOrigin;
 
 		private Inventory inventory;
+		private SpriteRenderer spriteRenderer;
+		private Weapon equippedWeapon;
+		private UsableItem equippedItem;
+
+		private float weaponCooldown;
+		private float itemCooldown;
 
 
 		#region Properties
-		public ItemEntry EquippedItem
+		public UsableItem EquippedItem
 		{
-			get
-			{
-				if (this.inventory.Count > this.equippedItemIndex)
-					return this.inventory[this.equippedItemIndex];
-
-				return null;
-			}
+			get { return this.equippedItem; }
 		}
 
 
-		public ItemEntry EquippedWeapon
+		public Weapon EquippedWeapon
 		{
-			get
-			{
-				if (this.inventory.Count > this.equippedWeaponIndex)
-					return this.inventory[this.equippedWeaponIndex];
-
-				return null;
-			}
+			get { return this.equippedWeapon; }
 		}
 
 
@@ -49,46 +45,205 @@
 		{
 			get { return this.inventory; }
 		}
+
+
+		public SpriteRenderer SpriteRenderer
+		{
+			get { return this.spriteRenderer; }
+			set { this.spriteRenderer = value; }
+		}
 		#endregion
 
 
 		public void Awake()
 		{
 			this.inventory = GetComponent<Inventory>();
+			this.NestSprite();
+			EquipWeapon(this.equippedWeaponIndex);
+		}
+
+
+		public void Update()
+		{
+			if (this.weaponCooldown > 0)
+				this.weaponCooldown -= GameTime.DeltaTime;
+
+			if (this.itemCooldown > 0)
+				this.itemCooldown -= GameTime.DeltaTime;
+		}
+
+
+		public bool EquipItem(int inventoryIndex)
+		{
+			ItemEntry item = this.inventory[inventoryIndex];
+
+			if (item == null
+				|| !item.ItemData.IsUsable)
+			{
+				return false;
+			}
+
+			this.equippedItemIndex = inventoryIndex;
+
+			GameObject itemObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
+			itemObject.transform.SetParent(this.useItemOrigin);
+			itemObject.transform.localPosition = Vector3.zero;
+
+			UsableItem usableItem = itemObject.GetComponent<UsableItem>();
+			this.equippedItem = usableItem;
+
+			return true;
+		}
+
+
+		public void EquipNextItem()
+		{
+			for (int i = 0; i <= this.inventory.Count; i++)
+			{
+				this.equippedItemIndex++;
+				if (this.equippedItemIndex > this.inventory.Count)
+					this.equippedItemIndex = 0;
+
+				if (EquipItem(this.equippedItemIndex))
+					return;
+			}
+
+			this.equippedItemIndex = -1;
+			this.equippedItem = null;
+		}
+
+
+		public void EquipNextWeapon()
+		{
+			for (int i = 0; i < this.inventory.Count; i++)
+			{
+				this.equippedWeaponIndex++;
+				if (this.equippedWeaponIndex == this.inventory.Count)
+					this.equippedWeaponIndex = 0;
+
+				if (EquipWeapon(this.equippedWeaponIndex))
+					return;
+			}
+
+			this.equippedWeaponIndex = -1;
+			this.equippedWeapon = null;
+		}
+
+
+		public void EquipPreviousWeapon()
+		{
+			for (int i = 0; i < this.inventory.Count; i++)
+			{
+				this.equippedWeaponIndex--;
+				if (this.equippedWeaponIndex < 0)
+					this.equippedWeaponIndex = this.inventory.Count - 1;
+
+				if (EquipWeapon(this.equippedWeaponIndex))
+					return;
+			}
+
+			this.equippedWeaponIndex = -1;
+			this.equippedWeapon = null;
+		}
+
+
+		// Getting tired, what even
+		public bool EquipWeapon(int inventoryIndex)
+		{
+			if (this.inventory.Count < 1)
+			{
+				this.equippedWeaponIndex = -1;
+				this.equippedWeapon = null;
+				return false;
+			}
+
+			if (inventoryIndex >= this.inventory.Count)
+				return false;
+
+			ItemEntry item = this.inventory[inventoryIndex];
+
+			if (item == null
+				|| !item.ItemData.IsWeapon)
+			{
+				return false;
+			}
+
+			this.equippedWeaponIndex = inventoryIndex;
+
+			SwapWeaponPrefab(item);
+			this.equippedWeaponIndex = inventoryIndex;
+
+			return true;
 		}
 
 
 		public void UseEquippedItem()
 		{
-			if (this.EquippedItem == null)
+			if (this.equippedItem == null
+				|| this.itemCooldown > 0)
+			{
 				return;
+			}
 
-			if (!this.EquippedItem.ItemData.IsUsable)
-				return;
+			ItemEntry itemEntry = this.inventory[this.equippedItemIndex];
 
-			this.EquippedItem.ItemData.Use(this.attackOrigin);
+			Vector2 direction = this.spriteRenderer.flipX
+									? Vector2.left
+									: Vector2.right;
 
-			if (!this.EquippedItem.ItemData.IsConsumed)
-				return;
+			this.equippedItem.Use(direction);
+			this.itemCooldown = itemEntry.ItemData.ActivationCooldown;
 
-			this.inventory.ConsumeItem(this.equippedItemIndex);
+			if (itemEntry.ItemData.IsConsumed)
+			{
+				if (this.inventory[this.equippedItemIndex].Count == 1)
+					EquipNextItem();
+
+				this.inventory.ConsumeItem(itemEntry);
+			}
 		}
 
 
 		public void UseEquippedWeapon()
 		{
-			if (this.EquippedWeapon == null)
+			if (this.equippedWeapon == null
+				|| this.weaponCooldown > 0)
+			{
 				return;
+			}
+				
 
-			if (!this.EquippedWeapon.ItemData.IsWeapon)
-				return;
+			ItemEntry itemEntry = this.inventory[this.equippedWeaponIndex];
 
-			this.EquippedWeapon.ItemData.Attack(this.attackOrigin);
+			Vector2 direction = this.spriteRenderer.flipX
+									? Vector2.left
+									: Vector2.right;
 
-			if (!this.EquippedWeapon.ItemData.IsConsumed)
-				return;
+			this.equippedWeapon.Attack(direction);
+			this.weaponCooldown = itemEntry.ItemData.ActivationCooldown;
 
-			this.inventory.ConsumeItem(this.equippedWeaponIndex);
+			if (itemEntry.ItemData.IsConsumed)
+			{
+				this.inventory.ConsumeItem(this.equippedWeaponIndex, 1);
+				if (itemEntry.Count == 0)
+				{
+					EquipPreviousWeapon();
+				}
+			}
+		}
+
+
+		private void SwapWeaponPrefab(ItemEntry item)
+		{
+			if (this.equippedWeapon != null)
+				PoolManager.Despawn(this.equippedWeapon.gameObject);
+
+			GameObject weaponObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
+			weaponObject.transform.SetParent(this.attackOrigin);
+			weaponObject.transform.localPosition = Vector3.zero;
+
+			Weapon weapon = weaponObject.GetComponent<Weapon>();
+			this.equippedWeapon = weapon;
 		}
 	}
 }

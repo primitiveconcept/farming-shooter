@@ -10,9 +10,17 @@
 		private UnityEvent onDepleted;
 
 
-		public override void Reduce(int amount)
+		#region Properties
+		public UnityEvent OnDepleted
 		{
-			base.Reduce(amount);
+			get { return this.onDepleted; }
+		}
+		#endregion
+
+
+		public override void Reduce(int amount, bool forceEvent = false)
+		{
+			base.Reduce(amount, forceEvent);
 
 			if (this.Current == this.Min)
 				this.onDepleted.Invoke();

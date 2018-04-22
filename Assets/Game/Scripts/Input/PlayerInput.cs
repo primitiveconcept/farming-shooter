@@ -1,30 +1,61 @@
 ﻿namespace FarmingShooter
 {
 	using UnityEngine;
+	using UnityStandardAssets.CrossPlatformInput;
 
 
-	public class PlayerInput : MonoBehaviour
+	public partial class PlayerInput : MonoBehaviour
 	{
-		private IMoveable movement;
+		[SerializeField]
+		private bool locked;
+
+		private IMovable movement;
+		private Actor actor;
+
+		public bool Locked
+		{
+			get { return this.locked; }
+			set { this.locked = value; }
+		}
 
 
 		public void Awake()
 		{
-			this.movement = GetComponent<IMoveable>();
+			this.movement = GetComponent<IMovable>();
+			this.actor = GetComponent<Actor>();
+		}
+
+
+		public void Move(Vector2 direction)
+		{
+			this.movement.MoveDirection = direction;
+			this.movement.Move();
 		}
 
 
 		public void Update()
 		{
-			var horizontalInput = Input.GetAxis(Controls.HorizontalAxis);
-			var verticalInput = Input.GetAxis(Controls.VerticalAxis);
+			if (this.locked
+				|| GameTime.IsPaused)
+			{
+				return;
+			}
+
+			float horizontalInput = Input.GetAxisRaw(Controls.HorizontalAxis);
+			float verticalInput = Input.GetAxisRaw(Controls.VerticalAxis);
+			float mouseWheelInput = Input.GetAxisRaw(Controls.MouseWheelAxis);
 
 			Move(new Vector2(horizontalInput, verticalInput));
-		}
 
-		public void Move(Vector2 direction)
-		{
-			this.movement.Move(direction);
+			if (mouseWheelInput > 0)
+				this.actor.EquipNextWeapon();
+			else if (mouseWheelInput < 0)
+				this.actor.EquipPreviousWeapon();
+
+			if (CrossPlatformInputManager.GetButtonDown(Controls.Primary))
+				this.actor.UseEquippedWeapon();
+
+			
 		}
 	}
 }
