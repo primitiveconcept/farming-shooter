@@ -25,7 +25,8 @@
 
 			if (this.destroyEffectPrefab != null)
 			{
-				PoolManager.Spawn(this.destroyEffectPrefab, this.transform.position);
+				var destroyEffect = PoolManager.Spawn(this.destroyEffectPrefab, this.transform.position);
+				destroyEffect.transform.SetParent(this.transform.parent);
 			}
 
 			if (this.delay > 0)

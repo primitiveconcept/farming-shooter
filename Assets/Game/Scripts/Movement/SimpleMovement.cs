@@ -13,8 +13,11 @@
 		[SerializeField]
 		private Vector2 moveDirection;
 
-		private new Rigidbody2D rigidbody2D;
+		[SerializeField]
+		private Vector2 additionalMovement;
 
+		private new Rigidbody2D rigidbody2D;
+		
 
 		#region Properties
 		public Vector2 MoveDirection
@@ -43,10 +46,14 @@
 			this.rigidbody2D = this.gameObject.SetupRigidbody();
 		}
 
-
+		
 		public void Move()
 		{
-			Vector2 velocity = new Vector2(this.moveDirection.x, this.moveDirection.y) * this.speed;
+			Vector2 velocity = new Vector2(
+				this.moveDirection.x, 
+				this.moveDirection.y)
+				* this.speed
+				+ this.additionalMovement;
 			this.rigidbody2D.velocity = velocity;
 		}
 	}

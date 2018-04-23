@@ -40,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: ParallaxBack
+    uniqueID: 1486621131
+    locked: 0
+  - name: ParallaxFore
+    uniqueID: 1055264657
+    locked: 0
+  - name: Terrain
+    uniqueID: 921024671
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
