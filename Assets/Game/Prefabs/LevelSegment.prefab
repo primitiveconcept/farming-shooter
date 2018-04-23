@@ -20,9 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4657024667105196}
   - component: {fileID: 212253050290734134}
+  - component: {fileID: 61984988751857844}
+  - component: {fileID: 114737565563646674}
   m_Layer: 0
   m_Name: TerrainMiddle
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,9 +38,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4240742619515050}
   - component: {fileID: 212060604755812278}
+  - component: {fileID: 61339225970991248}
+  - component: {fileID: 114370291510110620}
   m_Layer: 0
   m_Name: TerrainRight
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,9 +71,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4647062874183720}
   - component: {fileID: 212800403237242300}
+  - component: {fileID: 61694927166683012}
+  - component: {fileID: 114060551350662670}
   m_Layer: 0
   m_Name: TerrainLeft
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,9 +137,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4217322906286468}
   - component: {fileID: 212922972115707330}
+  - component: {fileID: 61855724812299142}
+  - component: {fileID: 114455187715646558}
   m_Layer: 0
   m_Name: TerrainLeft
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,9 +297,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4438531622103078}
   - component: {fileID: 212268713527932182}
+  - component: {fileID: 61402952377202434}
+  - component: {fileID: 114992021419995000}
   m_Layer: 0
   m_Name: TerrainMiddle
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,9 +331,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4913139236603458}
   - component: {fileID: 212477402675252664}
+  - component: {fileID: 61655008095015540}
+  - component: {fileID: 114187159380846676}
   m_Layer: 0
   m_Name: TerrainRight
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -637,6 +649,252 @@ Transform:
   m_Father: {fileID: 4382884185843260}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61339225970991248
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037334010388034}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!61 &61402952377202434
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825251064276758}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!61 &61655008095015540
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890506425684254}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!61 &61694927166683012
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1133758438347380}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!61 &61855724812299142
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1260083654375696}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!61 &61984988751857844
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014158962425620}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06270531}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 0.64}
+    newSize: {x: 5.12, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 0.51458937}
+  m_EdgeRadius: 0
+--- !u!114 &114060551350662670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1133758438347380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+--- !u!114 &114187159380846676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890506425684254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+--- !u!114 &114370291510110620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037334010388034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+--- !u!114 &114455187715646558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1260083654375696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+--- !u!114 &114737565563646674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014158962425620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+--- !u!114 &114992021419995000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825251064276758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
 --- !u!212 &212060604755812278
 SpriteRenderer:
   m_ObjectHideFlags: 1

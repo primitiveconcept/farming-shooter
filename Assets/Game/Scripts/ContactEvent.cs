@@ -1,5 +1,6 @@
 ﻿namespace FarmingShooter
 {
+	using System;
 	using UnityEngine;
 	using UnityEngine.Events;
 
@@ -11,13 +12,52 @@
 		private string[] onlyAffectsTags;
 
 		[SerializeField]
-		private UnityEvent onTriggerEnter;
+		private TriggerEvent onTriggerEnter;
 
 		[SerializeField]
-		private UnityEvent onTriggerStay;
+		private TriggerEvent onTriggerStay;
 
 		[SerializeField]
-		private UnityEvent onTriggerExit;
+		private TriggerEvent onTriggerExit;
+
+		[SerializeField]
+		private CollisionEvent onCollisionEnter;
+
+		[SerializeField]
+		private CollisionEvent onCollisionStay;
+
+		[SerializeField]
+		private CollisionEvent onCollisionExit;
+
+
+		public void OnCollisionEnter2D(Collision2D other)
+		{
+			if (!Tags.HasTag(other.gameObject, this.onlyAffectsTags))
+				return;
+
+			if (this.onCollisionEnter != null)
+				this.onCollisionEnter.Invoke(other);
+		}
+
+
+		public void OnCollisionExit2D(Collision2D other)
+		{
+			if (!Tags.HasTag(other.gameObject, this.onlyAffectsTags))
+				return;
+
+			if (this.onCollisionExit != null)
+				this.onCollisionExit.Invoke(other);
+		}
+
+
+		public void OnCollisionStay2D(Collision2D other)
+		{
+			if (!Tags.HasTag(other.gameObject, this.onlyAffectsTags))
+				return;
+
+			if (this.onCollisionStay != null)
+				this.onCollisionStay.Invoke(other);
+		}
 
 
 		public void OnTriggerEnter2D(Collider2D other)
@@ -26,7 +66,7 @@
 				return;
 
 			if (this.onTriggerEnter != null)
-				this.onTriggerEnter.Invoke();
+				this.onTriggerEnter.Invoke(other);
 		}
 
 
@@ -36,7 +76,7 @@
 				return;
 
 			if (this.onTriggerExit != null)
-				this.onTriggerExit.Invoke();
+				this.onTriggerExit.Invoke(other);
 		}
 
 
@@ -46,7 +86,18 @@
 				return;
 
 			if (this.onTriggerStay != null)
-				this.onTriggerStay.Invoke();
+				this.onTriggerStay.Invoke(other);
+		}
+
+
+		[Serializable]
+		public class CollisionEvent : UnityEvent<Collision2D>
+		{
+		}
+
+		[Serializable]
+		public class TriggerEvent : UnityEvent<Collider2D>
+		{
 		}
 	}
 }

@@ -9,10 +9,12 @@
 		{
 			Rigidbody2D rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
 			if (rigidbody2D == null)
+			{
 				rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
-
+				rigidbody2D.gravityScale = 0;
+			}
+			
 			rigidbody2D.isKinematic = false;
-			rigidbody2D.gravityScale = 0;
 			rigidbody2D.mass = 1;
 			rigidbody2D.angularDrag = 0;
 			rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
