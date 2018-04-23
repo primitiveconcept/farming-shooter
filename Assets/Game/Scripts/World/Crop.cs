@@ -19,9 +19,25 @@
 		[SerializeField]
 		private UnityEvent onGrowthTierUpdated;
 
+		private bool isWatered;
 		private SpriteRenderer spriteRenderer;
-		private Health health;
+		private CropBlock cropBlock;
 		private int startingHealth;
+
+
+		#region Properties
+		public CropBlock CropBlock
+		{
+			get { return this.cropBlock; }
+			set { this.cropBlock = value; }
+		}
+
+
+		public int CurrentTier
+		{
+			get { return this.currentTier; }
+		}
+
 
 		public bool IsReadyForHarvest
 		{
@@ -29,60 +45,73 @@
 		}
 
 
-		public void DropItemYield()
+		public bool IsWatered
 		{
-			ItemPickup.CreateFromItemEntry(this.itemYield);
-			PoolManager.Despawn(this.gameObject);
+			get { return this.isWatered; }
 		}
+		#endregion
 
 
 		public void Awake()
 		{
 			this.spriteRenderer = GetComponent<SpriteRenderer>();
-			this.health = GetComponent<Health>();
-			this.startingHealth = this.health.Current;
-			this.health.OnChanged.AddListener(health => UpdateState());
 		}
 
 
-		public void Start()
+		public void DropItemYield()
 		{
-			UpdateState();
+			if (this.IsReadyForHarvest)
+			{
+				ItemPickup yield = ItemPickup.CreateFromItemEntry(this.itemYield);
+				Collider2D collider = GetComponent<Collider2D>();
+				yield.transform.position = collider.bounds.max;
+			}
+
+			this.cropBlock.Crop = null;
+			this.cropBlock.Unwater();
+
+			PoolManager.Despawn(this.gameObject);
+		}
+
+
+		public void IncrementTier()
+		{
+			if (this.currentTier < this.growthTiers.Length - 1)
+				this.currentTier++;
+			this.spriteRenderer.sprite = this.growthTiers[this.currentTier].Sprite;
+			Destroy(GetComponent<PolygonCollider2D>());
+			PolygonCollider2D collider = this.gameObject.AddComponent<PolygonCollider2D>();
+			collider.isTrigger = true;
 		}
 
 
 		public void OnSpawn()
 		{
 			this.currentTier = 0;
-			this.health.SetCurrent(this.startingHealth);
-		}
-
-		public void UpdateState()
-		{
-			int newTier = GetCurrentTier();
-			if (this.currentTier != newTier)
-			{
-				this.spriteRenderer.sprite = this.growthTiers[newTier].Sprite;
-				this.currentTier = newTier;
-
-				if (this.onGrowthTierUpdated != null)
-					this.onGrowthTierUpdated.Invoke();
-			}
+			this.spriteRenderer.sprite = this.growthTiers[this.currentTier].Sprite;
 		}
 
 
-		public int GetCurrentTier()
+		public void Start()
 		{
-			int currentTier = 0;
+			OnSpawn();
+		}
 
-			for (int i = 0; i < this.growthTiers.Length; i++)
-			{
-				GrowthTier growthTier = this.growthTiers[i];
-				if (this.health.Current >= growthTier.NecessaryHealth)
-					currentTier = i;
-			}
 
-			return currentTier;
+		public void Unwater()
+		{
+			this.isWatered = false;
+			this.cropBlock.Unwater();
+		}
+
+
+		public void Water()
+		{
+			if (this.IsReadyForHarvest)
+				return;
+
+			this.isWatered = true;
+			this.cropBlock.Water(); // Can end up being called twice.
 		}
 
 
@@ -90,22 +119,15 @@
 		public class GrowthTier
 		{
 			[SerializeField]
-			private int necessaryHealth;
-
-			[SerializeField]
 			private Sprite sprite;
 
 
-			public int NecessaryHealth
-			{
-				get { return this.necessaryHealth; }
-			}
-
-
+			#region Properties
 			public Sprite Sprite
 			{
 				get { return this.sprite; }
 			}
+			#endregion
 		}
 	}
 }

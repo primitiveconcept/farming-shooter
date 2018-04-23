@@ -9,19 +9,19 @@
 	public abstract class ObservableRangeInt : MonoBehaviour
 	{
 		[SerializeField]
-		private int current;
+		protected int current;
 
 		[SerializeField]
-		private int min = 0;
+		protected int min = 0;
 
 		[SerializeField]
-		private int max = 100;
+		protected int max = 100;
 
 		[SerializeField]
-		private bool setToMaxOnStart;
+		protected bool setToMaxOnStart;
 
 		[SerializeField]
-		private ChangedEvent onChanged;
+		protected ChangedEvent onChanged;
 
 
 		#region Properties

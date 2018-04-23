@@ -21,8 +21,6 @@
 
 		public void Destroy()
 		{
-			Debug.Log("Destroyed: " + this.gameObject.name);
-
 			if (this.destroyEffectPrefab != null)
 			{
 				var destroyEffect = PoolManager.Spawn(this.destroyEffectPrefab, this.transform.position);

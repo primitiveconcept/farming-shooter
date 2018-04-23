@@ -60,21 +60,22 @@
 			this.inventory = GetComponent<Inventory>();
 			this.NestSprite();
 			EquipWeapon(this.equippedWeaponIndex);
-		}
-
-
-		public void Update()
-		{
-			if (this.weaponCooldown > 0)
-				this.weaponCooldown -= GameTime.DeltaTime;
-
-			if (this.itemCooldown > 0)
-				this.itemCooldown -= GameTime.DeltaTime;
+			EquipItem(this.equippedItemIndex);
 		}
 
 
 		public bool EquipItem(int inventoryIndex)
 		{
+			if (this.inventory.Count < 1)
+			{
+				this.equippedItemIndex = -1;
+				this.equippedItem = null;
+				return false;
+			}
+
+			if (inventoryIndex >= this.inventory.Count)
+				return false;
+
 			ItemEntry item = this.inventory[inventoryIndex];
 
 			if (item == null
@@ -85,12 +86,8 @@
 
 			this.equippedItemIndex = inventoryIndex;
 
-			GameObject itemObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
-			itemObject.transform.SetParent(this.useItemOrigin);
-			itemObject.transform.localPosition = Vector3.zero;
-
-			UsableItem usableItem = itemObject.GetComponent<UsableItem>();
-			this.equippedItem = usableItem;
+			SwapItemPrefab(item);
+			this.equippedItemIndex = inventoryIndex;
 
 			return true;
 		}
@@ -127,6 +124,23 @@
 
 			this.equippedWeaponIndex = -1;
 			this.equippedWeapon = null;
+		}
+
+
+		public void EquipPreviousItem()
+		{
+			for (int i = 0; i < this.inventory.Count; i++)
+			{
+				this.equippedItemIndex--;
+				if (this.equippedItemIndex < 0)
+					this.equippedItemIndex = this.inventory.Count - 1;
+
+				if (EquipItem(this.equippedItemIndex))
+					return;
+			}
+
+			this.equippedItemIndex = -1;
+			this.equippedItem = null;
 		}
 
 
@@ -177,6 +191,16 @@
 		}
 
 
+		public void Update()
+		{
+			if (this.weaponCooldown > 0)
+				this.weaponCooldown -= GameTime.DeltaTime;
+
+			if (this.itemCooldown > 0)
+				this.itemCooldown -= GameTime.DeltaTime;
+		}
+
+
 		public void UseEquippedItem()
 		{
 			if (this.equippedItem == null
@@ -191,15 +215,16 @@
 									? Vector2.left
 									: Vector2.right;
 
-			this.equippedItem.Use(direction);
+			this.equippedItem.Use(this, direction);
 			this.itemCooldown = itemEntry.ItemData.ActivationCooldown;
 
 			if (itemEntry.ItemData.IsConsumed)
 			{
-				if (this.inventory[this.equippedItemIndex].Count == 1)
-					EquipNextItem();
-
-				this.inventory.ConsumeItem(itemEntry);
+				this.inventory.ConsumeItem(this.equippedItemIndex, 1);
+				if (itemEntry.Count == 0)
+				{
+					EquipPreviousItem();
+				}
 			}
 		}
 
@@ -211,7 +236,6 @@
 			{
 				return;
 			}
-				
 
 			ItemEntry itemEntry = this.inventory[this.equippedWeaponIndex];
 
@@ -230,6 +254,20 @@
 					EquipPreviousWeapon();
 				}
 			}
+		}
+
+
+		private void SwapItemPrefab(ItemEntry item)
+		{
+			if (this.equippedItem != null)
+				PoolManager.Despawn(this.equippedItem.gameObject);
+
+			GameObject itemObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
+			itemObject.transform.SetParent(this.useItemOrigin);
+			itemObject.transform.localPosition = Vector3.zero;
+
+			UsableItem usableItem = itemObject.GetComponent<UsableItem>();
+			this.equippedItem = usableItem;
 		}
 
 

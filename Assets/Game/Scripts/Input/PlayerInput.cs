@@ -23,6 +23,15 @@
 		{
 			this.movement = GetComponent<IMovable>();
 			this.actor = GetComponent<Actor>();
+			var uiMeters = FindObjectsOfType<UIMeter>();
+			foreach (var uiMeter in uiMeters)
+			{
+				if (uiMeter.gameObject.name.Contains("Health"))
+				{
+					Health health = GetComponent<Health>();
+					health.OnChanged.AddListener(healthState => uiMeter.UpdateMeter(healthState));
+				}
+			}
 		}
 
 
@@ -48,12 +57,15 @@
 			Move(new Vector2(horizontalInput, verticalInput));
 
 			if (mouseWheelInput > 0)
-				this.actor.EquipNextWeapon();
+				this.actor.EquipNextItem();
 			else if (mouseWheelInput < 0)
-				this.actor.EquipPreviousWeapon();
+				this.actor.EquipPreviousItem();
 
 			if (CrossPlatformInputManager.GetButtonDown(Controls.Primary))
 				this.actor.UseEquippedWeapon();
+
+			if (CrossPlatformInputManager.GetButtonDown(Controls.Secondary))
+				this.actor.UseEquippedItem();
 
 			
 		}

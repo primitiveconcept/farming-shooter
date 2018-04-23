@@ -3,7 +3,6 @@
 	using UnityEngine;
 	using FarmingShooter.Exensions.Physics;
 
-	[RequireComponent(typeof(Collider2D))]
 	public class ItemPickup : MonoBehaviour,
 							IHasSprite
 	{
@@ -25,17 +24,21 @@
 		#endregion
 
 
+		public void Awake()
+		{
+			this.spriteRenderer = GetComponent<SpriteRenderer>();
+		}
+
+
 		public static ItemPickup CreateFromItemEntry(ItemEntry itemEntry)
 		{
 			if (poolObject == null)
 			{
 
-				poolObject = new GameObject("Item Pickup Blueprint");
+				poolObject = new GameObject("Item Pickup");
 				poolObject.AddComponent<SpriteRenderer>();
-				poolObject.AddComponent<ItemPickup>().NestSprite();
-				BoxCollider2D collider = poolObject.AddComponent<BoxCollider2D>();
-				collider.isTrigger = true;
 				poolObject.SetupRigidbody();
+				poolObject.AddComponent<ItemPickup>();
 				poolObject.SetActive(false);
 			}
 
@@ -43,17 +46,14 @@
 			ItemPickup itemPickup = itemPickupObject.GetComponent<ItemPickup>();
 			itemPickup.item = itemEntry;
 			itemPickup.SpriteRenderer.sprite = itemEntry.ItemData.Icon;
+			Destroy(itemPickupObject.GetComponent<Collider2D>());
+			BoxCollider2D collider = itemPickupObject.AddComponent<BoxCollider2D>();
+			collider.isTrigger = true;
 
 			return itemPickup;
 		}
 
-
-		public void Awake()
-		{
-			this.NestSprite();
-		}
-
-
+		
 		public void OnTriggerEnter2D(Collider2D other)
 		{
 			Actor actor = other.GetComponent<Actor>();
@@ -67,7 +67,6 @@
 			if (actorInventory.AcquireItem(this.item))
 			{
 				Debug.Log("Item Pickup: " + this.item.ItemData.DisplayName);
-				// TODO: Use pooling instead.
 				PoolManager.Despawn(this.gameObject);
 			}
 		}

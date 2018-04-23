@@ -142,7 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605a9665f6af6d24a86fccf63bbfd86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyEffectPrefab: {fileID: 0}
+  destroyEffectPrefab: {fileID: 1890651075191804, guid: c5e73476ccf6a4148915bcb6440b2222,
+    type: 2}
   destroyOnStart: 0
   delay: 0
   isPooled: 1

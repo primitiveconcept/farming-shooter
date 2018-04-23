@@ -22,6 +22,10 @@ GameObject:
   - component: {fileID: 198585632261671766}
   - component: {fileID: 199264036008454972}
   - component: {fileID: 114005112540578532}
+  - component: {fileID: 61184301347183150}
+  - component: {fileID: 114503315182483234}
+  - component: {fileID: 114169818477458770}
+  - component: {fileID: 50412827778211754}
   m_Layer: 8
   m_Name: BloodSpray
   m_TagString: Untagged
@@ -36,12 +40,57 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890651075191804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.82, y: -0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50412827778211754
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890651075191804}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &61184301347183150
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890651075191804}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.109796405, y: -0.13888383}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.0131078, y: 1.9520113}
+  m_EdgeRadius: 0
 --- !u!114 &114005112540578532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,6 +106,83 @@ MonoBehaviour:
   destroyOnStart: 1
   delay: 1
   isPooled: 0
+--- !u!114 &114169818477458770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890651075191804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040cea2c5d8d11041bcc22cee2bcc2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlyAffectsTags:
+  - Terrain
+  - Crop
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114503315182483234}
+        m_MethodName: Saturate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: FarmingShooter.ContactEvent+TriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114503315182483234}
+        m_MethodName: Saturate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: FarmingShooter.ContactEvent+TriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.ContactEvent+TriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.ContactEvent+CollisionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCollisionStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.ContactEvent+CollisionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.ContactEvent+CollisionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114503315182483234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890651075191804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17097f2fb51714745b99f5763d15b09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198585632261671766
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -117,7 +243,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1011399185
+  randomSeed: 590205188
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3496,9 +3622,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -447653523
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 3
   m_MinParticleSize: 0.001

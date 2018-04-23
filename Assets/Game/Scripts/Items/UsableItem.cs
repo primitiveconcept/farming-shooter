@@ -5,6 +5,6 @@
 
 	public abstract class UsableItem : MonoBehaviour
 	{
-		public abstract void Use(Vector2 direction);
+		public abstract void Use(Actor origin, Vector2 direction);
 	}
 }

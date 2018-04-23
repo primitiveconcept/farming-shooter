@@ -115,6 +115,7 @@ MonoBehaviour:
   destroyOnContact: 1
   onlyAffectsTags:
   - Enemy
+  - Crop
 --- !u!114 &114999783296404254
 MonoBehaviour:
   m_ObjectHideFlags: 1

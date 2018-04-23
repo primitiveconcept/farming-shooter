@@ -9,32 +9,34 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1271787354099304}
+  m_RootGameObject: {fileID: 1348801017826244}
   m_IsPrefabParent: 1
---- !u!1 &1271787354099304
+--- !u!1 &1348801017826244
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4875701498541198}
-  - component: {fileID: 212163880824521604}
-  - component: {fileID: 61545065938469130}
-  - component: {fileID: 114614500471772588}
+  - component: {fileID: 4582897241460880}
+  - component: {fileID: 212842183856293480}
+  - component: {fileID: 61419460523739388}
+  - component: {fileID: 114339640327776782}
+  - component: {fileID: 114932021753302694}
+  - component: {fileID: 114318583511711914}
   m_Layer: 0
-  m_Name: PlantBlock2
+  m_Name: PlantBlock3
   m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4875701498541198
+--- !u!4 &4582897241460880
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1271787354099304}
+  m_GameObject: {fileID: 1348801017826244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -42,12 +44,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61545065938469130
+--- !u!61 &61419460523739388
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1271787354099304}
+  m_GameObject: {fileID: 1348801017826244}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -67,12 +69,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
---- !u!114 &114614500471772588
+--- !u!114 &114318583511711914
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1271787354099304}
+  m_GameObject: {fileID: 1348801017826244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef9e4d95cabfaa43861f9edc0817c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wateredColor: {r: 0.7352941, g: 0.60553634, b: 0.60553634, a: 1}
+--- !u!114 &114339640327776782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348801017826244}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46ad135f003342b40b680ab0c96ce6fe, type: 3}
@@ -92,12 +106,29 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!212 &212163880824521604
+--- !u!114 &114932021753302694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348801017826244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+  - Enemy
+--- !u!212 &212842183856293480
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1271787354099304}
+  m_GameObject: {fileID: 1348801017826244}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -126,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 921024671
   m_SortingLayer: -1
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300004, guid: 6bf185075505d1f4ea7d0f8e7019cb27, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 6bf185075505d1f4ea7d0f8e7019cb27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

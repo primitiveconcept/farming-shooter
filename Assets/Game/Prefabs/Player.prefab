@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5814e99e3f6a9414e893487979f5fceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedItemIndex: 0
+  equippedItemIndex: 1
   equippedWeaponIndex: 0
   attackOrigin: {fileID: 4358424554397718}
   useItemOrigin: {fileID: 4486500548214632}
@@ -194,9 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   moveDirection: {x: 0, y: 0}
-  additionalMovement: {x: 0.5, y: 0}
+  additionalMovement: {x: 2, y: 0}
 --- !u!114 &114542711253821404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,7 +228,13 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: 367cbcc64755f5141b08b032e9a40ee4, type: 2}
     count: 1
     isDroppable: 0
-  maxSlots: 4
+  - itemData: {fileID: 11400000, guid: 72ef3e75cc157844fa314966c7904703, type: 2}
+    count: 1
+    isDroppable: 0
+  - itemData: {fileID: 11400000, guid: ed57afbfb84b2284b97e52e39176ee7c, type: 2}
+    count: 3
+    isDroppable: 0
+  maxSlots: 5
   locked: 0
 --- !u!114 &114789417304907880
 MonoBehaviour:

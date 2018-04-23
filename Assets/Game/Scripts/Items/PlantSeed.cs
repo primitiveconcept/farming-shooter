@@ -24,9 +24,16 @@
 			}
 
 			int randomBlockIdex = Random.Range(0, this.randomBlockSpawns.Length);
-			GameObject block = this.randomBlockSpawns[randomBlockIdex];
-			PoolManager.Spawn(block, spawnPoint);
-			PoolManager.Spawn(this.cropToPlant.gameObject, spawnPoint);
+			GameObject blockPrefab = this.randomBlockSpawns[randomBlockIdex];
+			GameObject cropBlockObject = PoolManager.Spawn(blockPrefab, spawnPoint);
+			GameObject cropObject = PoolManager.Spawn(this.cropToPlant.gameObject, spawnPoint);
+
+			Crop crop = cropObject.GetComponent<Crop>();
+			
+
+			CropBlock cropBlock = cropBlockObject.GetComponent<CropBlock>();
+			cropBlock.Crop = crop;
+			crop.CropBlock = cropBlock;
 
 			Destroyable destroyable = GetComponent<Destroyable>();
 			if (destroyable != null)
