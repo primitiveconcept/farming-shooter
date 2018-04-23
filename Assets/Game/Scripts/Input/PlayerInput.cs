@@ -23,15 +23,6 @@
 		{
 			this.movement = GetComponent<IMovable>();
 			this.actor = GetComponent<Actor>();
-			var uiMeters = FindObjectsOfType<UIMeter>();
-			foreach (var uiMeter in uiMeters)
-			{
-				if (uiMeter.gameObject.name.Contains("Health"))
-				{
-					Health health = GetComponent<Health>();
-					health.OnChanged.AddListener(healthState => uiMeter.UpdateMeter(healthState));
-				}
-			}
 		}
 
 

@@ -1,5 +1,6 @@
 ﻿namespace FarmingShooter
 {
+	using System.Collections;
 	using UnityEngine;
 	using UnityEngine.Events;
 
@@ -7,16 +8,65 @@
 	public class Health : ObservableRangeInt
 	{
 		[SerializeField]
+		private float flickerInterval = 0.05f;
+
+		[SerializeField]
+		private Color damagedFlicker = Color.red;
+
+		[SerializeField]
+		private Color invulnerabilityFlicker = Color.clear;
+
+		[SerializeField]
+		private float invulnerabilityDuration = 2f;
+
+		[SerializeField]
+		private bool invulerableOnSpawn = false;
+
+		[SerializeField]
 		private UnityEvent onDepleted;
 
+		private bool isInvulnerable;
 		private int originalHealth;
 
+
 		#region Properties
+		public bool IsInvulnerable
+		{
+			get { return this.isInvulnerable; }
+		}
+
+
 		public UnityEvent OnDepleted
 		{
 			get { return this.onDepleted; }
 		}
 		#endregion
+
+
+		public void EnableTemporaryInvulnerability()
+		{
+			StartCoroutine(InvulnerabilityCoroutine());
+		}
+
+
+		public void OnSpawn()
+		{
+			SetCurrent(this.originalHealth);
+			if (this.invulerableOnSpawn)
+				EnableTemporaryInvulnerability();
+		}
+
+
+		public override void Reduce(int amount, bool forceEvent = false)
+		{
+			if (this.isInvulnerable)
+				return;
+
+			base.Reduce(amount, forceEvent);
+
+			if (this.Current == this.Min)
+				this.onDepleted.Invoke();
+		}
 
 
 		public override void Start()
@@ -27,18 +77,24 @@
 			this.originalHealth = this.Current;
 		}
 
-		public void OnSpawn()
+
+		private IEnumerator InvulnerabilityCoroutine()
 		{
-			SetCurrent(this.originalHealth);
-		}
+			this.isInvulnerable = true;
+			float invulnerabilityCounter = 0;
+			yield return null; // Hack, sprite renderer may not be available on this frame.
 
-
-		public override void Reduce(int amount, bool forceEvent = false)
-		{
-			base.Reduce(amount, forceEvent);
-
-			if (this.Current == this.Min)
-				this.onDepleted.Invoke();
+			SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+			while (invulnerabilityCounter < this.invulnerabilityDuration)
+			{
+				spriteRenderer.color = spriteRenderer.color == Color.white
+											? this.invulnerabilityFlicker
+											: Color.white;
+				invulnerabilityCounter += GameTime.DeltaTime;
+				yield return new WaitForSeconds(this.flickerInterval);
+			}
+			spriteRenderer.color = Color.white;
+			this.isInvulnerable = false;
 		}
 	}
 }

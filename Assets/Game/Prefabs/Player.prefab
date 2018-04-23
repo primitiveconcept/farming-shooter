@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114789417304907880}
   - component: {fileID: 114244715449515340}
   - component: {fileID: 114542711253821404}
+  - component: {fileID: 114426765695855332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -183,6 +184,17 @@ MonoBehaviour:
   equippedWeaponIndex: 0
   attackOrigin: {fileID: 4358424554397718}
   useItemOrigin: {fileID: 4486500548214632}
+--- !u!114 &114426765695855332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115290374064784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba48434138dab746baa21e915acd3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114518109974559142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,7 +224,7 @@ MonoBehaviour:
     type: 2}
   destroyOnStart: 0
   delay: 0
-  isPooled: 0
+  isPooled: 1
 --- !u!114 &114750649239874528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,8 +246,18 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: ed57afbfb84b2284b97e52e39176ee7c, type: 2}
     count: 3
     isDroppable: 0
-  maxSlots: 5
+  maxSlots: 100
   locked: 0
+  onItemPickup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.Inventory+ItemPickupEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onItemRemoval:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.Inventory+ItemPickupEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114789417304907880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,11 +278,27 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: FarmingShooter.ObservableRangeInt+ChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  flickerInterval: 0.05
+  damagedFlicker: {r: 1, g: 0, b: 0, a: 1}
+  invulnerabilityFlicker: {r: 0, g: 0, b: 0, a: 0}
+  invulnerabilityDuration: 2
+  invulerableOnSpawn: 1
   onDepleted:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114542711253821404}
         m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114426765695855332}
+        m_MethodName: Respawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

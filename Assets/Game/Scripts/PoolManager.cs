@@ -116,6 +116,9 @@
 			{
 				if (managedPools[prefab].Active.Contains(instance))
 					return managedPools[prefab];
+
+				if (managedPools[prefab].Inactive.Contains(instance))
+					return managedPools[prefab];
 			}
 
 			Debug.LogError("PoolManager couldn't find Pool for instance: " + instance.name);

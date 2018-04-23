@@ -9,7 +9,7 @@
 		private int currentDay;
 
 		[SerializeField]
-		private Transform playerSpawn;
+		private Spawner playerSpawn;
 
 		private Vector2 levelStartPosition;
 
@@ -34,10 +34,26 @@
 			}
 
 			Camera.main.transform.parent.position = this.levelStartPosition;
-			PlayerInput player = FindObjectOfType<PlayerInput>();
-			player.gameObject.transform.position = this.playerSpawn.position;
+			GameObject player = GameObject.FindGameObjectWithTag(Tags.Player);
+			if (player == null)
+			{
+				player = this.playerSpawn.Spawn();
+			}
+			player.transform.position = this.playerSpawn.transform.position;
 			Health playerHealth = player.GetComponent<Health>();
 			playerHealth.SetCurrent(playerHealth.Max);
+			FindObjectOfType<UIPlayerHud>().ObservePlayer(player);
+
+
+			Spawner[] spawners = FindObjectsOfType<Spawner>();
+			foreach (Spawner spawner in spawners)
+			{
+				if (!spawner.Prefab.CompareTag(Tags.Player))
+				{
+					spawner.DespawnAll();
+					spawner.Spawn();
+				}
+			}
 		}
 	}
 }

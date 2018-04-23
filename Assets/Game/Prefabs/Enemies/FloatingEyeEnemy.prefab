@@ -25,6 +25,11 @@ GameObject:
   - component: {fileID: 61165202005298800}
   - component: {fileID: 114411821039528728}
   - component: {fileID: 114984571152224826}
+  - component: {fileID: 114240808665346268}
+  - component: {fileID: 114506721532340000}
+  - component: {fileID: 114002839767576210}
+  - component: {fileID: 114079746766824190}
+  - component: {fileID: 114913797135704586}
   m_Layer: 0
   m_Name: FloatingEyeEnemy
   m_TagString: Enemy
@@ -70,6 +75,74 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &114002839767576210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758589219704160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba48434138dab746baa21e915acd3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114079746766824190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758589219704160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccfaeb4651d34dc4b9ed6b262748c8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whileVisible:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114755345977298800}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  whileInvisible:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114755345977298800}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114240808665346268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758589219704160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908fabf9092f97347ab69b857b6ce6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthCost: 0
+  bloodPrefab: {fileID: 114503315182483234, guid: c5e73476ccf6a4148915bcb6440b2222,
+    type: 2}
 --- !u!114 &114411821039528728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,7 +177,56 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114240808665346268}
+        m_MethodName: Bleed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114506721532340000}
+        m_MethodName: DropAll
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114506721532340000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758589219704160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d73c091b7d927b46901f358d38ed259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - itemData: {fileID: 11400000, guid: dfe3a435bbeff41468c99993592f86cf, type: 2}
+    count: 20
+    isDroppable: 1
+  maxSlots: 1
+  locked: 0
+  onItemPickup:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.Inventory+ItemPickupEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onItemRemoval:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: FarmingShooter.Inventory+ItemPickupEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114755345977298800
 MonoBehaviour:
@@ -117,6 +239,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839baec9dd227e84bae114efe33804bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114913797135704586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758589219704160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cb706f6c5e3714c9c4dbb6392d1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
+  damageInterval: 0
+  destroyOnContact: 0
+  onlyAffectsTags:
+  - Player
+  - Crop
 --- !u!114 &114934900559821782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  moveDirection: {x: 0, y: 0}
+  speed: 3
+  moveDirection: {x: -1, y: 0}
   additionalMovement: {x: 0, y: 0}
 --- !u!114 &114984571152224826
 MonoBehaviour:
@@ -183,7 +322,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 203a40bd070fb5141b202a243467e96e, type: 3}
   m_Color: {r: 0.64705884, g: 0.1379758, b: 0.1379758, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.32, y: 0.32}

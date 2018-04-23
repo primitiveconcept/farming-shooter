@@ -263,8 +263,10 @@
 				PoolManager.Despawn(this.equippedItem.gameObject);
 
 			GameObject itemObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
-			itemObject.transform.SetParent(this.useItemOrigin);
-			itemObject.transform.localPosition = Vector3.zero;
+			Pool itemPool = PoolManager.GetPool(itemObject);
+			itemPool.transform.SetParent(this.useItemOrigin);
+			//itemObject.transform.SetParent(this.useItemOrigin);
+			itemPool.transform.localPosition = Vector3.zero;
 
 			UsableItem usableItem = itemObject.GetComponent<UsableItem>();
 			this.equippedItem = usableItem;
@@ -277,8 +279,10 @@
 				PoolManager.Despawn(this.equippedWeapon.gameObject);
 
 			GameObject weaponObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
-			weaponObject.transform.SetParent(this.attackOrigin);
-			weaponObject.transform.localPosition = Vector3.zero;
+			Pool weaponPool = PoolManager.GetPool(weaponObject);
+			weaponPool.transform.SetParent(this.attackOrigin);
+			//weaponObject.transform.SetParent(this.attackOrigin);
+			weaponPool.transform.localPosition = Vector3.zero;
 
 			Weapon weapon = weaponObject.GetComponent<Weapon>();
 			this.equippedWeapon = weapon;

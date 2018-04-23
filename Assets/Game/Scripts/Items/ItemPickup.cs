@@ -2,6 +2,8 @@
 {
 	using UnityEngine;
 	using FarmingShooter.Exensions.Physics;
+	using UnityEngine.Events;
+
 
 	public class ItemPickup : MonoBehaviour,
 							IHasSprite
@@ -14,7 +16,7 @@
 		[SerializeField]
 		private SpriteRenderer spriteRenderer;
 
-
+		
 		#region Properties
 		public SpriteRenderer SpriteRenderer
 		{
@@ -49,6 +51,8 @@
 			Destroy(itemPickupObject.GetComponent<Collider2D>());
 			BoxCollider2D collider = itemPickupObject.AddComponent<BoxCollider2D>();
 			collider.isTrigger = true;
+
+			Debug.Log("Item Spawned: " + itemEntry.ItemData.DisplayName + "(" + itemEntry.Count + ")");
 
 			return itemPickup;
 		}

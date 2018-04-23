@@ -1,7 +1,9 @@
 ﻿namespace FarmingShooter
 {
+	using System;
 	using System.Collections.Generic;
 	using UnityEngine;
+	using UnityEngine.Events;
 
 
 	public class Inventory : MonoBehaviour
@@ -15,6 +17,12 @@
 		[SerializeField]
 		private bool locked = false;
 
+		[SerializeField]
+		private ItemPickupEvent onItemPickup;
+
+		[SerializeField]
+		private ItemPickupEvent onItemRemoval;
+
 		private HashSet<ItemData> discoveredItems = new HashSet<ItemData>();
 
 
@@ -22,6 +30,12 @@
 		public int Count
 		{
 			get { return this.items.Count; }
+		}
+
+
+		public HashSet<ItemData> DiscoveredItems
+		{
+			get { return this.discoveredItems; }
 		}
 
 
@@ -45,6 +59,18 @@
 		}
 
 
+		public ItemPickupEvent OnItemPickup
+		{
+			get { return this.onItemPickup; }
+		}
+
+
+		public ItemPickupEvent OnItemRemoval
+		{
+			get { return this.onItemRemoval; }
+		}
+
+
 		public ItemEntry this[ItemData itemData]
 		{
 			get
@@ -55,26 +81,6 @@
 
 				return this[index];
 			}
-		}
-
-
-		public void DropAll()
-		{
-			for (int i = 0; i < this.Count; i++)
-			{
-				DropItem(i);
-			}
-		}
-
-
-		public void DropItem(int index)
-		{
-			var itemEntry = this[index];
-			if (!itemEntry.IsDroppable)
-				return;
-
-			ItemPickup.CreateFromItemEntry(itemEntry);
-			ConsumeItem(this[index]);
 		}
 
 
@@ -98,20 +104,27 @@
 
 			ItemEntry existingEntry = this[itemData];
 
-			bool collected = false;
+			int collected = 0;
 
 			if (existingEntry != null)
 				collected = IncreaseItemCount(existingEntry, amount);
 			else
-				collected = AddNewItemEntry(new ItemEntry() { ItemData = itemData, Count = amount });
-
-			if (collected
-				&& !this.discoveredItems.Contains(itemData))
 			{
-				this.discoveredItems.Add(itemData);
+				existingEntry = new ItemEntry() { ItemData = itemData, Count = amount };
+				collected = AddNewItemEntry(existingEntry);
 			}
 
-			return collected;
+			if (collected > 0)
+			{
+				if (!this.discoveredItems.Contains(itemData))
+					this.discoveredItems.Add(itemData);
+				if (this.onItemPickup != null)
+					this.onItemPickup.Invoke(existingEntry);
+
+				return true;
+			}
+
+			return false;
 		}
 
 
@@ -131,6 +144,10 @@
 		{
 			ItemEntry item = this.items[index];
 			item.Count -= amount;
+
+			if (this.onItemRemoval != null)
+				this.onItemRemoval.Invoke(item);
+
 			if (item.Count < 1)
 				this.items.RemoveAt(index);
 		}
@@ -179,6 +196,43 @@
 		}
 
 
+		public void DropAll()
+		{
+			for (int i = 0; i < this.Count; i++)
+			{
+				DropItem(i);
+			}
+		}
+
+
+		public void DropAll(bool removeFromInventory)
+		{
+			for (int i = 0; i < this.Count; i++)
+			{
+				DropItem(i, removeFromInventory);
+			}
+		}
+
+
+		public void DropItem(int index, bool removeFromInventory = true)
+		{
+			ItemEntry itemEntry = this[index];
+			if (!itemEntry.IsDroppable)
+				return;
+
+			ItemPickup pickup = ItemPickup.CreateFromItemEntry(itemEntry);
+			pickup.transform.position = this.transform.position;
+
+			if (removeFromInventory)
+			{
+				if (this.onItemRemoval != null)
+					this.onItemRemoval.Invoke(itemEntry);
+
+				this.items.RemoveAt(index);
+			}
+		}
+
+
 		public int GetIndexOf(ItemData itemData)
 		{
 			for (int index = 0; index < this.Count; index++)
@@ -192,29 +246,39 @@
 		}
 
 
-		private bool AddNewItemEntry(ItemEntry itemEntry)
+		private int AddNewItemEntry(ItemEntry itemEntry)
 		{
+			if (itemEntry.Count > itemEntry.ItemData.MaxCount)
+				itemEntry.Count = itemEntry.ItemData.MaxCount;
+
 			if (this.Count < this.maxSlots)
 			{
 				this.items.Add(itemEntry);
-				return true;
+				return itemEntry.Count;
 			}
 
 			// Inventory slots already maxed out.
-			return false;
+			return 0;
 		}
 
 
-		private bool IncreaseItemCount(ItemEntry existingEntry, int amount)
+		private int IncreaseItemCount(ItemEntry existingEntry, int amount)
 		{
 			if (existingEntry.Count < existingEntry.ItemData.MaxCount)
 			{
+				int previousAmount = existingEntry.Count;
 				existingEntry.Count += amount;
-				return true;
+				return existingEntry.Count - previousAmount;
 			}
 
 			// Item already maxed out.
-			return false;
+			return 0;
+		}
+
+
+		[Serializable]
+		public class ItemPickupEvent : UnityEvent<ItemEntry>
+		{
 		}
 	}
 }
