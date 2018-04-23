@@ -15,6 +15,12 @@
 		[SerializeField]
 		private ItemData scoreItem;
 
+		[SerializeField]
+		private Image selectedItemIcon;
+
+		[SerializeField]
+		private Text selectedItemCount;
+
 		private GameObject player;
 
 
@@ -28,6 +34,15 @@
 			Inventory inventory = this.player.GetComponent<Inventory>();
 			inventory.OnItemPickup.AddListener(OnItemPickup);
 			inventory.OnItemRemoval.AddListener(OnItemRemoval);
+		}
+
+
+		public void ShowSelectedItem(ItemEntry itemEntry)
+		{
+			this.selectedItemIcon.sprite = itemEntry.ItemData.Icon;
+			this.selectedItemCount.text = itemEntry.ItemData.IsConsumed
+				? itemEntry.Count.ToString()
+				: "";
 		}
 		
 

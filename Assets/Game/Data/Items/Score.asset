@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Score
   m_EditorClassIdentifier: 
   displayName: Score
-  icon: {fileID: 21300000, guid: 63beedd6363f03a41a1c946b9d4b0e84, type: 3}
+  icon: {fileID: 21300000, guid: 624aae2babdbdb1459240e78692089c3, type: 3}
   equipPrefab: {fileID: 0}
   maxCount: 1000
   isUsable: 0

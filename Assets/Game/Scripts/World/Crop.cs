@@ -8,7 +8,7 @@
 	public class Crop : MonoBehaviour
 	{
 		[SerializeField]
-		private ItemEntry itemYield;
+		private ItemEntry[] itemYield;
 
 		[SerializeField]
 		private GrowthTier[] growthTiers;
@@ -62,9 +62,16 @@
 		{
 			if (this.IsReadyForHarvest)
 			{
-				ItemPickup yield = ItemPickup.CreateFromItemEntry(this.itemYield);
 				Collider2D collider = GetComponent<Collider2D>();
-				yield.transform.position = collider.bounds.max;
+				foreach (ItemEntry yieldEntry in this.itemYield)
+				{
+					ItemPickup yield = ItemPickup.CreateFromItemEntry(yieldEntry);
+					Vector3 dropOffset = new Vector3(
+						UnityEngine.Random.Range(-0.5f, 0.5f),
+						UnityEngine.Random.Range(0, 0.5f),
+						0);
+					yield.transform.position = collider.bounds.max + dropOffset;
+				}
 			}
 
 			this.cropBlock.Crop = null;

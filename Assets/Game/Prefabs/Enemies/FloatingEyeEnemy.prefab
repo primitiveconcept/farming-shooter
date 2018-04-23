@@ -163,6 +163,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: FarmingShooter.ObservableRangeInt+ChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  flickerInterval: 0.1
+  damagedFlicker: {r: 1, g: 0, b: 0, a: 1}
+  invulnerabilityFlicker: {r: 0, g: 0, b: 0, a: 0}
+  invulnerabilityDuration: 2
+  invulerableOnSpawn: 0
   onDepleted:
     m_PersistentCalls:
       m_Calls:
@@ -213,10 +218,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - itemData: {fileID: 11400000, guid: dfe3a435bbeff41468c99993592f86cf, type: 2}
-    count: 20
+  - itemData: {fileID: 11400000, guid: ed57afbfb84b2284b97e52e39176ee7c, type: 2}
+    count: 1
     isDroppable: 1
   maxSlots: 1
+  dropOffsetRange: {x: 0.25, y: 0.25}
   locked: 0
   onItemPickup:
     m_PersistentCalls:

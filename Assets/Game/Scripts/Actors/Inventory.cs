@@ -15,6 +15,9 @@
 		private int maxSlots = 1;
 
 		[SerializeField]
+		private Vector2 dropOffsetRange = new Vector2(1, 1);
+
+		[SerializeField]
 		private bool locked = false;
 
 		[SerializeField]
@@ -221,7 +224,12 @@
 				return;
 
 			ItemPickup pickup = ItemPickup.CreateFromItemEntry(itemEntry);
-			pickup.transform.position = this.transform.position;
+			Vector2 dropLocation = new Vector2(
+				this.transform.position.x + UnityEngine.Random.Range(-this.dropOffsetRange.x, this.dropOffsetRange.x),
+				this.transform.position.y + UnityEngine.Random.Range(-this.dropOffsetRange.y, this.dropOffsetRange.y)
+				);
+
+			pickup.transform.position = dropLocation;
 
 			if (removeFromInventory)
 			{

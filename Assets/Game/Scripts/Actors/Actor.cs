@@ -26,6 +26,7 @@
 
 		private float weaponCooldown;
 		private float itemCooldown;
+		private UIPlayerHud playerHud;
 
 
 		#region Properties
@@ -57,6 +58,7 @@
 
 		public void Awake()
 		{
+			this.playerHud = FindObjectOfType<UIPlayerHud>();
 			this.inventory = GetComponent<Inventory>();
 			this.NestSprite();
 			EquipWeapon(this.equippedWeaponIndex);
@@ -89,6 +91,9 @@
 			SwapItemPrefab(item);
 			this.equippedItemIndex = inventoryIndex;
 
+			if (this.gameObject.CompareTag(Tags.Player))
+				this.playerHud.ShowSelectedItem(item);
+			
 			return true;
 		}
 
@@ -225,6 +230,8 @@
 				{
 					EquipPreviousItem();
 				}
+				else if (this.gameObject.CompareTag(Tags.Player))
+					this.playerHud.ShowSelectedItem(itemEntry);
 			}
 		}
 
@@ -265,8 +272,8 @@
 			GameObject itemObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
 			Pool itemPool = PoolManager.GetPool(itemObject);
 			itemPool.transform.SetParent(this.useItemOrigin);
-			//itemObject.transform.SetParent(this.useItemOrigin);
 			itemPool.transform.localPosition = Vector3.zero;
+			itemObject.transform.localPosition = Vector3.zero;
 
 			UsableItem usableItem = itemObject.GetComponent<UsableItem>();
 			this.equippedItem = usableItem;
@@ -281,8 +288,8 @@
 			GameObject weaponObject = PoolManager.Spawn(item.ItemData.EquipPrefab);
 			Pool weaponPool = PoolManager.GetPool(weaponObject);
 			weaponPool.transform.SetParent(this.attackOrigin);
-			//weaponObject.transform.SetParent(this.attackOrigin);
 			weaponPool.transform.localPosition = Vector3.zero;
+			weaponObject.transform.localPosition = Vector3.zero;
 
 			Weapon weapon = weaponObject.GetComponent<Weapon>();
 			this.equippedWeapon = weapon;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: BleederData
   m_EditorClassIdentifier: 
   displayName: Bleeder
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 88ed54069584e584b94759540173e826, type: 3}
   equipPrefab: {fileID: 1516375841610580, guid: e91fc99d55629144f952d88ca4b7f6a3,
     type: 2}
   maxCount: 1
