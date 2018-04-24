@@ -70,7 +70,8 @@
 
 			if (actorInventory.AcquireItem(this.item))
 			{
-				Debug.Log("Item Pickup: " + this.item.ItemData.DisplayName);
+				if (this.item.ItemData.PickupClip != null)
+					AudioPlayer.Play(this.item.ItemData.PickupClip);
 				PoolManager.Despawn(this.gameObject);
 			}
 		}

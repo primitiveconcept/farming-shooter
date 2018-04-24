@@ -8,6 +8,7 @@
 		public const string Player = "Player";
 		public const string Enemy = "Enemy";
 		public const string Crop = "Crop";
+		public const string AutoScroll = "AutoScroll";
 
 
 		public static bool HasTag(GameObject gameObject, string[] tags)

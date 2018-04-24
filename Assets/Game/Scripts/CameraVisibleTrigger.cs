@@ -27,7 +27,7 @@
 			if (this.renderer.isVisible)
 			{
 				if (this.whileVisible != null)
-					this.whileInvisible.Invoke();
+					this.whileVisible.Invoke();
 				return;
 			}
 			

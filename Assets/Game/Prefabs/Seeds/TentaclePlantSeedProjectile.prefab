@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyEffectPrefab: {fileID: 0}
+  destroyClip: {fileID: 8300000, guid: 10ac8ad63d8bb5a4884780f194128540, type: 3}
   destroyOnStart: 1
   delay: 3
   isPooled: 1

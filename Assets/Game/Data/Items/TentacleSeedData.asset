@@ -13,11 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Tentacle Seed
   icon: {fileID: 21300000, guid: 651502ab40e2ece4e84f5399e9dff0ce, type: 3}
+  pickupClip: {fileID: 8300000, guid: cc6b4d164411f6743b05c05937c804c5, type: 3}
   equipPrefab: {fileID: 1514166882600488, guid: 4cd3178efe12b4c449e41986123dc5c1,
     type: 2}
   maxCount: 255
   isUsable: 1
   isWeapon: 0
-  activationCooldown: 0.3
   isConsumed: 1
+  activationCooldown: 0.3
   recipe: []

@@ -11,6 +11,7 @@
 
 		private IMovable movement;
 		private Actor actor;
+		private AscensionUpgrader ascensionUpgrader;
 
 		public bool Locked
 		{
@@ -23,6 +24,7 @@
 		{
 			this.movement = GetComponent<IMovable>();
 			this.actor = GetComponent<Actor>();
+			this.ascensionUpgrader = GetComponent<AscensionUpgrader>();
 		}
 
 
@@ -47,16 +49,27 @@
 
 			Move(new Vector2(horizontalInput, verticalInput));
 
-			if (mouseWheelInput > 0)
+			if (mouseWheelInput > 0
+				|| CrossPlatformInputManager.GetButtonDown(Controls.NextItem))
+			{
 				this.actor.EquipNextItem();
-			else if (mouseWheelInput < 0)
+			}
+				
+			else if (mouseWheelInput < 0
+					|| CrossPlatformInputManager.GetButtonDown(Controls.PreviousItem))
+			{
 				this.actor.EquipPreviousItem();
-
+			}
+			
+			
 			if (CrossPlatformInputManager.GetButtonDown(Controls.Primary))
 				this.actor.UseEquippedWeapon();
 
 			if (CrossPlatformInputManager.GetButtonDown(Controls.Secondary))
 				this.actor.UseEquippedItem();
+
+			if (CrossPlatformInputManager.GetButtonDown(Controls.ActivatePowerup))
+				this.ascensionUpgrader.ActivateSelection();
 
 			
 		}

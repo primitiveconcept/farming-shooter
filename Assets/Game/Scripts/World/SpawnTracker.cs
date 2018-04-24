@@ -1,9 +1,21 @@
 ﻿namespace FarmingShooter
 {
+	using System.Collections;
 	using UnityEngine;
+
+
 	public class SpawnTracker : MonoBehaviour
 	{
 		private Spawner spawner;
+
+
+		#region Properties
+		public Spawner Spawner
+		{
+			get { return this.spawner; }
+			set { this.spawner = value; }
+		}
+		#endregion
 
 
 		public void OnDespawn()
@@ -20,10 +32,17 @@
 			this.spawner.Spawn();
 		}
 
-		public Spawner Spawner
+
+		public void Respawn(float delay)
 		{
-			get { return this.spawner; }
-			set { this.spawner = value; }
+			this.Spawner.StartCoroutine(SpawnDelayCoroutine(delay));
+		}
+
+
+		private IEnumerator SpawnDelayCoroutine(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			Respawn();
 		}
 	}
 }

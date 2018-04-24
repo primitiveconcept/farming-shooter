@@ -13,6 +13,9 @@
 		private Sprite icon;
 
 		[SerializeField]
+		private AudioClip pickupClip;
+
+		[SerializeField]
 		private GameObject equipPrefab;
 
 		[SerializeField]
@@ -25,10 +28,10 @@
 		private bool isWeapon = false;
 
 		[SerializeField]
-		private float activationCooldown;
+		private bool isConsumed = true;
 
 		[SerializeField]
-		private bool isConsumed = true;
+		private float activationCooldown;
 
 		[SerializeField]
 		private ItemEntry[] recipe;
@@ -80,6 +83,12 @@
 		public int MaxCount
 		{
 			get { return this.maxCount; }
+		}
+
+
+		public AudioClip PickupClip
+		{
+			get { return this.pickupClip; }
 		}
 
 

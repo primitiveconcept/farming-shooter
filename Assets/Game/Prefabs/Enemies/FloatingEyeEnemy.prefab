@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908fabf9092f97347ab69b857b6ce6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useClip: {fileID: 0}
   healthCost: 0
   bloodPrefab: {fileID: 114503315182483234, guid: c5e73476ccf6a4148915bcb6440b2222,
     type: 2}
@@ -221,6 +222,9 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: ed57afbfb84b2284b97e52e39176ee7c, type: 2}
     count: 1
     isDroppable: 1
+  - itemData: {fileID: 11400000, guid: dfe3a435bbeff41468c99993592f86cf, type: 2}
+    count: 10
+    isDroppable: 1
   maxSlots: 1
   dropOffsetRange: {x: 0.25, y: 0.25}
   locked: 0
@@ -273,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   moveDirection: {x: -1, y: 0}
   additionalMovement: {x: 0, y: 0}
 --- !u!114 &114984571152224826
@@ -289,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyEffectPrefab: {fileID: 1890651075191804, guid: c5e73476ccf6a4148915bcb6440b2222,
     type: 2}
+  destroyClip: {fileID: 8300000, guid: 6afac40222def9145a0f969d46c4805f, type: 3}
   destroyOnStart: 0
   delay: 0
   isPooled: 1
@@ -327,7 +332,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 203a40bd070fb5141b202a243467e96e, type: 3}
-  m_Color: {r: 0.64705884, g: 0.1379758, b: 0.1379758, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0

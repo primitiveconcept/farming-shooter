@@ -5,6 +5,13 @@
 
 	public abstract class UsableItem : MonoBehaviour
 	{
-		public abstract void Use(Actor origin, Vector2 direction);
+		[SerializeField]
+		private AudioClip useClip;
+
+		public virtual void Use(Actor origin, Vector2 direction)
+		{
+			if (this.useClip != null)
+				AudioPlayer.Play(this.useClip);
+		}
 	}
 }

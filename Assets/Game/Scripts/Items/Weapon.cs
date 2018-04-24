@@ -4,6 +4,14 @@
 
 	public abstract class Weapon : MonoBehaviour
 	{
-		public abstract void Attack(Vector2 direction);
+		[SerializeField]
+		private AudioClip fireClip;
+
+
+		public virtual void Attack(Vector2 direction)
+		{
+			if (this.fireClip != null)
+				AudioPlayer.Play(this.fireClip);
+		}
 	}
 }

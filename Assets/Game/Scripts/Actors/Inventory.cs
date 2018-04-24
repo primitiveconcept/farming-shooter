@@ -123,7 +123,7 @@
 					this.discoveredItems.Add(itemData);
 				if (this.onItemPickup != null)
 					this.onItemPickup.Invoke(existingEntry);
-
+				
 				return true;
 			}
 
@@ -178,6 +178,9 @@
 		public bool Contains(ItemData itemData, int count = 1)
 		{
 			ItemEntry foundItem = this[itemData];
+			if (foundItem == null)
+				return false;
+
 
 			return foundItem.Count >= count;
 		}
@@ -220,8 +223,14 @@
 		public void DropItem(int index, bool removeFromInventory = true)
 		{
 			ItemEntry itemEntry = this[index];
-			if (!itemEntry.IsDroppable)
+
+			/*
+			if (!itemEntry.ItemData.name.Contains("Score")
+				&& !itemEntry.IsDroppable)
+			{
 				return;
+			}
+			*/
 
 			ItemPickup pickup = ItemPickup.CreateFromItemEntry(itemEntry);
 			Vector2 dropLocation = new Vector2(

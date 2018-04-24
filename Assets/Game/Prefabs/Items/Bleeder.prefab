@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908fabf9092f97347ab69b857b6ce6ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useClip: {fileID: 8300000, guid: e688b95a58667e74f81a55c635430ea0, type: 3}
   healthCost: 20
   bloodPrefab: {fileID: 114503315182483234, guid: c5e73476ccf6a4148915bcb6440b2222,
     type: 2}

@@ -15,9 +15,6 @@
 
 		public void Update()
 		{
-			if (GameTime.IsPaused)
-				return;
-
 			this.movementComponent.Move();
 		}
 	}

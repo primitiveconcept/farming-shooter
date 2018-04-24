@@ -20,11 +20,8 @@
 
 		public override void Use(Actor origin, Vector2 direction)
 		{
+			base.Use(origin, direction);
 			Health health = this.transform.parent.GetComponentInParent<Health>();
-
-			if (health.Current < this.healthCost)
-				return;
-
 			health.Reduce(this.healthCost);
 			Bleed();
 		}

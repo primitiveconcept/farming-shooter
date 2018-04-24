@@ -10,6 +10,9 @@
 		private GameObject destroyEffectPrefab;
 
 		[SerializeField]
+		private AudioClip destroyClip;
+
+		[SerializeField]
 		private bool destroyOnStart;
 
 		[SerializeField]
@@ -23,7 +26,7 @@
 		{
 			if (this.destroyEffectPrefab != null)
 			{
-				var destroyEffect = PoolManager.Spawn(this.destroyEffectPrefab, this.transform.position);
+				GameObject destroyEffect = PoolManager.Spawn(this.destroyEffectPrefab, this.transform.position);
 				destroyEffect.transform.SetParent(this.transform.parent);
 			}
 
@@ -66,6 +69,9 @@
 
 		private void RemoveObject()
 		{
+			if (this.destroyClip != null)
+				AudioPlayer.Play(this.destroyClip);
+
 			if (this.isPooled)
 				PoolManager.Despawn(this.gameObject);
 			else
