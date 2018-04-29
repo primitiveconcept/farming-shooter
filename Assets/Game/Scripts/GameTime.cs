@@ -27,6 +27,18 @@
 		}
 
 
+		public static float FixedDeltaTime
+		{
+			get
+			{
+				if (Instance.isPaused)
+					return 0f;
+
+				return Time.fixedDeltaTime;
+			}
+		}
+
+
 		public static bool IsPaused
 		{
 			get { return Instance.isPaused; }

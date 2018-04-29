@@ -3,7 +3,7 @@
 	using UnityEngine;
 
 
-	public class SelfHarm : UsableItem
+	public class Bleeder : UsableItem
 	{
 		[SerializeField]
 		private int healthCost = 5;

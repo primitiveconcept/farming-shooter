@@ -17,10 +17,7 @@
 
 		[SerializeField]
 		private float delay;
-
-		[SerializeField]
-		private bool isPooled;
-
+		
 
 		public void Destroy()
 		{
@@ -72,10 +69,7 @@
 			if (this.destroyClip != null)
 				AudioPlayer.Play(this.destroyClip);
 
-			if (this.isPooled)
-				PoolManager.Despawn(this.gameObject);
-			else
-				Destroy(this.gameObject);
+			PoolManager.Despawn(this.gameObject);
 		}
 	}
 }

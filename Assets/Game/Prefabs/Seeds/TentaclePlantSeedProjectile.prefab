@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4322757071868068}
   - component: {fileID: 212694262636753132}
   - component: {fileID: 114721203724944350}
-  - component: {fileID: 114184942733152930}
   - component: {fileID: 114218732412928344}
   - component: {fileID: 61321349623226430}
   - component: {fileID: 114869945853328986}
@@ -92,17 +91,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.30253357, y: 0.1461543}
   m_EdgeRadius: 0
---- !u!114 &114184942733152930
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1085397230248744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839baec9dd227e84bae114efe33804bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114218732412928344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,7 +106,6 @@ MonoBehaviour:
   destroyClip: {fileID: 8300000, guid: 10ac8ad63d8bb5a4884780f194128540, type: 3}
   destroyOnStart: 1
   delay: 3
-  isPooled: 1
 --- !u!114 &114631462830323760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,8 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  moveDirection: {x: 1, y: -1}
-  additionalMovement: {x: 0, y: 0}
+  moveDirection: {x: 0, y: 0}
+  additionalVelocity: {x: 0, y: 0}
+  autoMove: 1
 --- !u!114 &114869945853328986
 MonoBehaviour:
   m_ObjectHideFlags: 1

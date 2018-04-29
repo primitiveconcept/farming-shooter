@@ -100,7 +100,7 @@
 				this.upgradeImages[this.currentSelection].color = Color.gray;
 
 			this.playerMovement.Speed = this.originalPlayerSpeed;
-			this.playerMovement.AdditionalMovement = new Vector2(this.originalLevelSpeed, 0);
+			this.playerMovement.AdditionalVelocity = new Vector2(this.originalLevelSpeed, 0);
 			this.levelMovement.Speed = this.originalLevelSpeed;
 			this.playerActor.EquipWeapon(0);
 
@@ -118,7 +118,7 @@
 		public void SpeedUp()
 		{
 			this.playerMovement.Speed++;
-			this.playerMovement.AdditionalMovement += new Vector2(0.5f, 0);
+			this.playerMovement.AdditionalVelocity += new Vector2(0.5f, 0);
 			this.levelMovement.Speed += 0.5f;
 		}
 

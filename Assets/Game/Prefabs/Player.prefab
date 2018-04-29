@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114426765695855332}
   - component: {fileID: 114585767152627670}
   - component: {fileID: 114897312785095218}
+  - component: {fileID: 114074418102523752}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -133,6 +134,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &114074418102523752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115290374064784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13a113550d132a4c97e1b15c0113960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114102819245045882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equippedItemIndex: 4
-  equippedWeaponIndex: 0
+  equippedWeaponIndex: 3
   attackOrigin: {fileID: 4358424554397718}
   useItemOrigin: {fileID: 4486500548214632}
 --- !u!114 &114426765695855332
@@ -184,7 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   moveDirection: {x: 0, y: 0}
-  additionalMovement: {x: 2, y: 0}
+  additionalVelocity: {x: 0, y: 0}
+  autoMove: 0
 --- !u!114 &114542711253821404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,7 +214,6 @@ MonoBehaviour:
   destroyClip: {fileID: 8300000, guid: a327f49aea4d4c54bba2dcb4ff2c9bb8, type: 3}
   destroyOnStart: 0
   delay: 0
-  isPooled: 1
 --- !u!114 &114585767152627670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,7 +247,7 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: c49f8b68118f0444f9df434b022bddaa, type: 2}
     count: 1
     isDroppable: 0
-  - itemData: {fileID: 11400000, guid: 8f860b6536d1cd440b992cc52d573b8d, type: 2}
+  - itemData: {fileID: 11400000, guid: faf1811b1165cf249935b570633a545f, type: 2}
     count: 1
     isDroppable: 0
   - itemData: {fileID: 11400000, guid: 72ef3e75cc157844fa314966c7904703, type: 2}
@@ -363,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreItem: {fileID: 11400000, guid: dfe3a435bbeff41468c99993592f86cf, type: 2}
   currentSelection: -1
-  maxUpgrades: 0500000003000000
+  maxUpgrades: 0800000003000000
   currentUpgrades: 
   upgradeImages: []
   upgradeActions:

@@ -1,9 +1,9 @@
 ﻿namespace FarmingShooter
 {
+	using System.Collections;
 	using UnityEngine;
 	using FarmingShooter.Exensions.Physics;
-	using UnityEngine.Events;
-
+	
 
 	public class ItemPickup : MonoBehaviour,
 							IHasSprite
@@ -16,7 +16,7 @@
 		[SerializeField]
 		private SpriteRenderer spriteRenderer;
 
-		
+
 		#region Properties
 		public SpriteRenderer SpriteRenderer
 		{
@@ -26,19 +26,14 @@
 		#endregion
 
 
-		public void Awake()
-		{
-			this.spriteRenderer = GetComponent<SpriteRenderer>();
-		}
-
-
 		public static ItemPickup CreateFromItemEntry(ItemEntry itemEntry)
 		{
 			if (poolObject == null)
 			{
-
+				Debug.Log("Creating ItemPickup blueprint.");
 				poolObject = new GameObject("Item Pickup");
 				poolObject.AddComponent<SpriteRenderer>();
+				poolObject.AddComponent<CameraVisibleTrigger>();
 				poolObject.SetupRigidbody();
 				poolObject.AddComponent<ItemPickup>();
 				poolObject.SetActive(false);
@@ -52,12 +47,16 @@
 			BoxCollider2D collider = itemPickupObject.AddComponent<BoxCollider2D>();
 			collider.isTrigger = true;
 
-			Debug.Log("Item Spawned: " + itemEntry.ItemData.DisplayName + "(" + itemEntry.Count + ")");
-
 			return itemPickup;
 		}
 
-		
+
+		public void Awake()
+		{
+			this.spriteRenderer = GetComponent<SpriteRenderer>();
+		}
+
+
 		public void OnTriggerEnter2D(Collider2D other)
 		{
 			Actor actor = other.GetComponent<Actor>();
@@ -73,6 +72,29 @@
 				if (this.item.ItemData.PickupClip != null)
 					AudioPlayer.Play(this.item.ItemData.PickupClip);
 				PoolManager.Despawn(this.gameObject);
+			}
+		}
+
+
+		public void Start()
+		{
+			StartCoroutine(SetupInvisibleTrigger());
+		}
+
+
+		private IEnumerator SetupInvisibleTrigger()
+		{
+			yield return null;
+
+			CameraVisibleTrigger cameraVisibleTrigger = GetComponent<CameraVisibleTrigger>();
+			if (cameraVisibleTrigger != null)
+			{
+				cameraVisibleTrigger.WhileInvisible.AddListener(
+					() =>
+						{
+							Debug.Log("Despawned");
+							PoolManager.Despawn(this.gameObject);
+						});
 			}
 		}
 	}

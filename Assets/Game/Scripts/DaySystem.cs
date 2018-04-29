@@ -2,6 +2,7 @@
 {
 	using UnityEngine;
 	using UnityEngine.SceneManagement;
+	using UnityEngine.Serialization;
 	using UnityEngine.UI;
 
 
@@ -28,8 +29,12 @@
 		[SerializeField]
 		private Text dayCounterText;
 
+		[FormerlySerializedAs("dayMessageText")]
 		[SerializeField]
-		private Text dayMessageText;
+		private Text dayTitle;
+
+		[SerializeField]
+		private Text daySubtext;
 
 		[SerializeField]
 		private UIPlayerHud playerHud;
@@ -113,7 +118,10 @@
 			this.dayCounterText.text = "DAY " + this.currentDay;
 			if (this.currentDay < this.dayMessages.Length)
 			{
-				this.dayMessageText.text = this.dayMessages[this.currentDay];
+				var dayMessage = this.dayMessages[this.currentDay].Split(':');
+				this.dayTitle.text = dayMessage[0];
+				if (dayMessage.Length > 1)
+					this.daySubtext.text = dayMessage[1];
 			}
 		}
 	}

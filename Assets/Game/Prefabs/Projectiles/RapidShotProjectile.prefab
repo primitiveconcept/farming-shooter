@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4916876888130560}
   - component: {fileID: 212238368641319926}
   - component: {fileID: 114495955208742866}
-  - component: {fileID: 114518129396787546}
   - component: {fileID: 114644865635729552}
   - component: {fileID: 114695845206950386}
   - component: {fileID: 61857765538177504}
+  - component: {fileID: 114609750757634048}
   m_Layer: 0
   m_Name: RapidShotProjectile
   m_TagString: Untagged
@@ -81,10 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 18
   moveDirection: {x: 1, y: 0}
-  additionalMovement: {x: 0, y: 0}
---- !u!114 &114518129396787546
+  additionalVelocity: {x: 0, y: 0}
+  autoMove: 1
+--- !u!114 &114609750757634048
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -92,9 +93,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952276603261972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839baec9dd227e84bae114efe33804bf, type: 3}
+  m_Script: {fileID: 11500000, guid: ccfaeb4651d34dc4b9ed6b262748c8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whileVisible:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  whileInvisible:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114695845206950386}
+        m_MethodName: DestroyImmediately
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114644865635729552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,7 +149,6 @@ MonoBehaviour:
   destroyClip: {fileID: 0}
   destroyOnStart: 1
   delay: 1
-  isPooled: 1
 --- !u!212 &212238368641319926
 SpriteRenderer:
   m_ObjectHideFlags: 1

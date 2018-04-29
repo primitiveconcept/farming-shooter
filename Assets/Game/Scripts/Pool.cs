@@ -97,12 +97,7 @@
 		public void Despawn(GameObject instance)
 		{
 			if (!this.active.Contains(instance))
-			{
-				Debug.LogWarning(
-					"Can't despawn - Instance not found: "
-					+ instance.name + " in Pool " + this.name);
 				return;
-			}
 
 			if (instance.transform.parent != this.transform)
 				instance.transform.parent = this.transform;

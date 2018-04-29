@@ -224,14 +224,9 @@
 		{
 			ItemEntry itemEntry = this[index];
 
-			/*
-			if (!itemEntry.ItemData.name.Contains("Score")
-				&& !itemEntry.IsDroppable)
-			{
+			if (!itemEntry.IsDroppable)
 				return;
-			}
-			*/
-
+			
 			ItemPickup pickup = ItemPickup.CreateFromItemEntry(itemEntry);
 			Vector2 dropLocation = new Vector2(
 				this.transform.position.x + UnityEngine.Random.Range(-this.dropOffsetRange.x, this.dropOffsetRange.x),

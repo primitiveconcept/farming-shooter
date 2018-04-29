@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4063261468646224}
   - component: {fileID: 212194961140687704}
   - component: {fileID: 114755345977298800}
-  - component: {fileID: 114934900559821782}
   - component: {fileID: 61165202005298800}
   - component: {fileID: 114411821039528728}
   - component: {fileID: 114984571152224826}
@@ -101,7 +100,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114755345977298800}
-        m_MethodName: set_enabled
+        m_MethodName: set_AutoMove
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -117,7 +116,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114755345977298800}
-        m_MethodName: set_enabled
+        m_MethodName: set_AutoMove
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -246,9 +245,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1758589219704160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839baec9dd227e84bae114efe33804bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
+  moveDirection: {x: -1, y: 0}
+  additionalVelocity: {x: 0, y: 0}
+  autoMove: 1
 --- !u!114 &114913797135704586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,20 +269,6 @@ MonoBehaviour:
   onlyAffectsTags:
   - Player
   - Crop
---- !u!114 &114934900559821782
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1758589219704160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532d041dcd19cd243893275a55035d88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
-  moveDirection: {x: -1, y: 0}
-  additionalMovement: {x: 0, y: 0}
 --- !u!114 &114984571152224826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,7 +285,6 @@ MonoBehaviour:
   destroyClip: {fileID: 8300000, guid: 6afac40222def9145a0f969d46c4805f, type: 3}
   destroyOnStart: 0
   delay: 0
-  isPooled: 1
 --- !u!212 &212194961140687704
 SpriteRenderer:
   m_ObjectHideFlags: 1
